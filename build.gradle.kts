@@ -38,7 +38,7 @@ kotlin {
         binaries.executable()
         nodejs()
     }
-    
+
     sourceSets {
         commonMain.dependencies {
             implementation(libs.kotlinx.coroutines.core)

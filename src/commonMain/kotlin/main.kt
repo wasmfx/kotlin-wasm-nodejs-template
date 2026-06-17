@@ -4,21 +4,16 @@ import kotlin.time.measureTime
 fun main() {
     println("Hello from Kotlin/Wasm")
 
-    println("\n--- Sequence aka generator ---") 
-    testSequence()
+    println("\n--- Itersum 100_000_000 ---")
+    testItersum(100_000_000)
     
-    println("\n--- Treesum ---")
+    println("\n--- Treesum 25 ---")
     MainScope().launch {
-        testTreesum()
-    }
-
-    println("\n--- Coroutines ---")
-    MainScope().launch {
-        testCoroutines()
+        testTreesum(25)
     }
 }
 
-fun testSequence() {
+fun testItersum(size: Int) {
     val range = sequence {
         var i = 0
         while (true) {
@@ -28,7 +23,7 @@ fun testSequence() {
 
     var sum = 0
     val duration = measureTime {
-        sum = range.take(10_000_000).sum()
+        sum = range.take(size).sum()
         
     }
 
@@ -40,7 +35,7 @@ class Node(val height: Int, val left: Node?, val right: Node?) {
 }
 
 fun buildTree(height: Int) : Node {
-    if (height == 1) {
+    if (height == 0) {
         return Node(1, null, null)
     }
 
@@ -70,8 +65,8 @@ suspend fun SequenceScope<Int>.searchTree(t: Node) { //}: Sequence<Int> = sequen
     }
 }
 
-fun testTreesum() {
-    val tree = buildTree(25)
+fun testTreesum(height: Int) {
+    val tree = buildTree(height)
 
     val range = sequence {searchTree(tree)}
 
