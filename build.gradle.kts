@@ -50,9 +50,9 @@ apply<BinaryenPlugin>()
 the<BinaryenRootEnvSpec>().version.set(libs.versions.binaryen.get())
 
 // Uncomment to turn on stack-switching support
-//tasks.withType<org.jetbrains.kotlin.gradle.dsl.KotlinJsCompile>().configureEach {
-//    compilerOptions.freeCompilerArgs.addAll(listOf("-Xwasm-use-stack-switching-proposal"))
-//}
+tasks.withType<org.jetbrains.kotlin.gradle.dsl.KotlinJsCompile>().configureEach {
+    compilerOptions.freeCompilerArgs.addAll(listOf("-Xwasm-use-stack-switching-proposal"))
+}
 
 tasks.withType<org.jetbrains.kotlin.gradle.dsl.KotlinJsCompile>().matching { it.name.contains("wasmWasi", ignoreCase = true) }.configureEach {
     compilerOptions.freeCompilerArgs.addAll(listOf("-Xwasm-use-new-exception-proposal=false"))
